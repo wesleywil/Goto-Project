@@ -14,7 +14,7 @@ const Homepage = ()=>{
         <HomepageContainer>
             <h1>GOTO - Project</h1>
             <HomePageAnimeContainer>
-                <HomePageAnimeButton>New Anime</HomePageAnimeButton>
+                <HomePageAnimeButton onClick={()=>{setHiddenPanel('block')}}>New Anime</HomePageAnimeButton>
             </HomePageAnimeContainer>
             <HomepageStatusContainer>
                 <HomepageStatusButton color="green"></HomepageStatusButton>

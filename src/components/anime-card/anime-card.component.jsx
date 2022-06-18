@@ -2,10 +2,12 @@ import React from "react";
 
 import { AnimeCardContainer } from "./anime-card.styles";
 
-const AnimeCard = ()=>{
+const AnimeCard = ({name})=>{
 
     return(
-       <AnimeCardContainer></AnimeCardContainer>
+       <AnimeCardContainer>
+        <h1>{name}</h1>
+       </AnimeCardContainer>
     )
 }
 
