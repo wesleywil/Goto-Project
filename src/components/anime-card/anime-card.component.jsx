@@ -1,12 +1,16 @@
 import React from "react";
 
-import { AnimeCardContainer } from "./anime-card.styles";
+import { 
+    AnimeCardContainer,
+    AnimeCardTitle,
+    AnimeCardButton,
+} from "./anime-card.styles";
 
-const AnimeCard = ({name})=>{
-
+const AnimeCard = ({name, background, handle, hidden})=>{
     return(
-       <AnimeCardContainer>
-        <h1>{name}</h1>
+       <AnimeCardContainer background={background}>
+        <AnimeCardTitle>{name}</AnimeCardTitle>
+        <AnimeCardButton onClick={()=>handle()} cardHidden={hidden}>Add</AnimeCardButton>
        </AnimeCardContainer>
     )
 }

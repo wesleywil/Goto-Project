@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import AnimeCard from "../anime-card/anime-card.component";
+
+import { createAnimeDocument } from "../../database/database_connection.component";
+
+
 import {
-    AnimeSearchContainer, 
+    AnimeSearchContainer,
+    AnimeSearchClose,
     AnimeSearchMain, 
     AnimeSearchStyle,
     AnimeSearchButton,
     AnimeSearchInput, 
-    AnimeSearchList
+    AnimeSearchList,
+    AnimeSearchListEmpty
 } from "./anime.search.styles";
-import AnimeCard from "../anime-card/anime-card.component";
 
-const AnimeSearch = ({hidden})=>{
+const AnimeSearch = ({hidden, setHidden})=>{
     const [listAnime, setListAnime] = useState([]);
 
     const handleSearch = ()=>{
@@ -24,21 +30,27 @@ const AnimeSearch = ({hidden})=>{
         })
     }
 
+    const handleCloseWindow = ()=>{
+        setHidden('none');
+        setListAnime([]);
+    }
 
     return(
         <AnimeSearchContainer hidden={hidden}>
             <AnimeSearchMain>
+                <AnimeSearchClose onClick={()=>handleCloseWindow()}>X</AnimeSearchClose>
                 <AnimeSearchStyle>
                     <AnimeSearchInput id="serchAnime" type='text' placeholder='anime name' />
                     <AnimeSearchButton onClick={()=>handleSearch()}>Search</AnimeSearchButton>
                 </AnimeSearchStyle>
                 <AnimeSearchList>
                     {(listAnime.length)?
-                        listAnime.slice(0,7).map((anime)=>(
-                            <AnimeCard key={anime.mal_id} name={anime.title}/>
+                        listAnime.slice(0,9).map((anime)=>(
+                           
+                            <AnimeCard key={anime.mal_id} name={anime.title} background={anime.images.webp.image_url} handle={()=>createAnimeDocument({anime})} cardHidden={'block'}/>
                         ))
                     :
-                        <h1>NOTHING SEARCHED!</h1>
+                        <AnimeSearchListEmpty>NOTHING SEARCHED!</AnimeSearchListEmpty>
                     }
                 </AnimeSearchList>
             </AnimeSearchMain>

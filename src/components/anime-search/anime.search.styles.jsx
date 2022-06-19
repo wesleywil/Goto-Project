@@ -4,13 +4,28 @@ import styled from "styled-components";
 export const AnimeSearchContainer = styled.div`
     background-color:grey;
     width:80%;
-    height:600px;
     margin:10px auto;
+    padding:10px;
     border:1px solid white;
     border-radius:20px;
     position:absolute;
     top:120px;
     display:${props=>props.hidden};
+`;
+
+export const AnimeSearchClose = styled.button`
+    margin: 10px 0 5px 95%;
+    padding:2px 7px;
+    color:black;
+    font-size:2rem;
+    font-weight:bold;
+    border:0;
+    border-radius:50%;
+    background-color:#f0f8ff00;
+
+    &:hover{
+        color:red;
+    }
 `;
 
 export const AnimeSearchMain = styled.div`
@@ -65,10 +80,16 @@ export const AnimeSearchButton = styled.button`
 
 export const AnimeSearchList = styled.div`
     width:90%;
-    height:400px;
+    padding:10px;
     border:1px solid black;
     border-radius:20px;
     display: flex;
     flex-wrap: wrap;
     justify-content:center;
+    align-items: center;
+`;
+
+export const AnimeSearchListEmpty = styled.h1`
+    color:#9d9d9d;
+    font-size:4rem;
 `;
