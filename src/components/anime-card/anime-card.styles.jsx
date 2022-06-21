@@ -11,6 +11,7 @@ export const AnimeCardButton = styled.button`
     border:1px solid #000000c4;
     border-radius:20px;
     display:${props=> props.cardHidden};
+    transition: all 0.3s ease;
 
     &:hover{
         background-color:#000000f0;
@@ -24,6 +25,8 @@ export const AnimeCardTitle = styled.h1`
     background-color:#000000c4;
     margin:0;
     border-radius:20px 20px 0 0;
+    transition: all 0.3s ease;
+    
 
 `;
 
@@ -38,11 +41,13 @@ export const AnimeCardContainer = styled.div`
     flex-direction:column;
     justify-content:space-between;
     overflow:hidden;
+    transition: all 0.3s ease;
+   
+    
 
     &:hover{
-        flex-direction: column-reverse;
         ${AnimeCardTitle}{
-            display:none;
+            opacity:0; 
         }
     }
 `;
