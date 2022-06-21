@@ -6,11 +6,11 @@ import {
     AnimeCardButton,
 } from "./anime-card.styles";
 
-const AnimeCard = ({name, background, handle, hidden})=>{
+const AnimeCard = ({name, background, handle, hidden, buttonName})=>{
     return(
        <AnimeCardContainer background={background}>
         <AnimeCardTitle>{name}</AnimeCardTitle>
-        <AnimeCardButton onClick={()=>handle()} cardHidden={hidden}>Add</AnimeCardButton>
+        <AnimeCardButton onClick={()=>handle()} cardHidden={hidden}>{buttonName}</AnimeCardButton>
        </AnimeCardContainer>
     )
 }

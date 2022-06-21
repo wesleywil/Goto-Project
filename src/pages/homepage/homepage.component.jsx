@@ -3,6 +3,10 @@ import axios from "axios";
 
 import AnimeCard from "../../components/anime-card/anime-card.component";
 import AnimeSearch from "../../components/anime-search/anime-search.component";
+import UpdateAnimeComponent from "../../components/update-card/update.card.component";
+
+
+import { selectAnimeById } from "../../database/database_connection.component";
 
 import { 
     HomePageAnimeButton, 
@@ -16,25 +20,39 @@ import {
 
 
 const Homepage = ()=>{
-    const [hiddenPanel, setHiddenPanel] = useState('none');
+    const [hiddenAnimeSearch, setHiddenAnimeSearch] = useState('none');
+    const [hiddenUpdateAnime, setHiddenUpdateAnime] = useState('none');
+    const [updateData, setUpdateData] = useState(null)
     const [animes, setAnimes] = useState([]);
 
    useEffect(()=>{
     console.log('Use Effect Trigger')
-    const obj = {integerValue:'269'}
-    console.log(obj['integerValue'])
     axios.get(`https://firestore.googleapis.com/v1/projects/project-goto-animes/databases/(default)/documents/animes`)
     .then((response)=>{
-        setAnimes(response.data.documents)
-        console.log(response.data.documents)
+        if(response.data.documents === undefined){
+            console.log('UNDEFINED')
+            setAnimes([]);
+        }else{
+            setAnimes(response.data.documents)
+            console.log(response.data.documents)
+        }
+
     })
    },[])
+
+   const handleUpdateById =(id) =>{
+    selectAnimeById(id).then((response)=>{
+        setHiddenUpdateAnime('block');
+        console.log('RESPONSE ===>',response)
+        setUpdateData(response.data())
+    })
+   } 
 
     return(
         <HomepageContainer>
             <h1>GOTO - Project</h1>
             <HomePageAnimeContainer>
-                <HomePageAnimeButton onClick={()=>{setHiddenPanel('block')}}>New Anime</HomePageAnimeButton>
+                <HomePageAnimeButton onClick={()=>{setHiddenAnimeSearch('block')}}>New Anime</HomePageAnimeButton>
             </HomePageAnimeContainer>
             <HomepageStatusContainer>
                 <HomepageStatusButton color="green"></HomepageStatusButton>
@@ -42,15 +60,20 @@ const Homepage = ()=>{
                 <HomepageStatusButton color="red"></HomepageStatusButton>
             </HomepageStatusContainer>
             <HomepageList>
-                {(animes.length)?
+                {
+                (animes !== undefined)?
+                (animes.length)?
                     animes.map((anime)=>(
-                        <AnimeCard key={JSON.stringify(anime.key)} name={anime.fields.title['stringValue']} background={anime.fields.image_url['stringValue']}/>
+                        <AnimeCard key={anime.fields.anime_id['integerValue']} name={anime.fields.title['stringValue']} background={anime.fields.image_url['stringValue']} handle={()=>handleUpdateById(anime.fields.anime_id['integerValue'])} buttonName={'Update'}/>
                     ))
                 :
                     <h1>EMPTY ARRAY</h1>
+                :
+                 <h1>UNDEFINED</h1>  
                 }
             </HomepageList>
-            <AnimeSearch hidden={hiddenPanel} setHidden={setHiddenPanel}></AnimeSearch>
+            <AnimeSearch hidden={hiddenAnimeSearch} setHidden={setHiddenAnimeSearch}></AnimeSearch>
+            <UpdateAnimeComponent data={updateData} hidden={hiddenUpdateAnime} setHidden={setHiddenUpdateAnime}/>
         </HomepageContainer>
     )
 }
