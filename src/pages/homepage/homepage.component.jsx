@@ -9,9 +9,10 @@ import UpdateAnimeComponent from "../../components/update-card/update.card.compo
 import { selectAnimeById } from "../../database/database_connection.component";
 
 import { 
+    HomepageContainer,
+    HomePageTitle,
     HomePageAnimeButton, 
     HomePageAnimeContainer, 
-    HomepageContainer, 
     HomepageList, 
     HomepageStatusButton, 
     HomepageStatusContainer 
@@ -50,21 +51,27 @@ const Homepage = ()=>{
 
     return(
         <HomepageContainer>
-            <h1>GOTO - Project</h1>
+            <HomePageTitle>GOTO - Project</HomePageTitle>
             <HomePageAnimeContainer>
                 <HomePageAnimeButton onClick={()=>{setHiddenAnimeSearch('block')}}>New Anime</HomePageAnimeButton>
             </HomePageAnimeContainer>
             <HomepageStatusContainer>
-                <HomepageStatusButton color="green"></HomepageStatusButton>
-                <HomepageStatusButton color="yellow"></HomepageStatusButton>
-                <HomepageStatusButton color="red"></HomepageStatusButton>
+                <HomepageStatusButton color="#8bd98b"><span>Reading</span></HomepageStatusButton>
+                <HomepageStatusButton color="#f5f552"><span>Read</span></HomepageStatusButton>
+                <HomepageStatusButton color="#f16464"><span>Dropped</span></HomepageStatusButton>
             </HomepageStatusContainer>
             <HomepageList>
                 {
                 (animes !== undefined)?
                 (animes.length)?
                     animes.map((anime)=>(
-                        <AnimeCard key={anime.fields.anime_id['integerValue']} name={anime.fields.title['stringValue']} background={anime.fields.image_url['stringValue']} handle={()=>handleUpdateById(anime.fields.anime_id['integerValue'])} buttonName={'Update'}/>
+                        <AnimeCard 
+                            key={anime.fields.anime_id['integerValue']} 
+                            name={anime.fields.title['stringValue']} 
+                            background={anime.fields.image_url['stringValue']} 
+                            handle={()=>handleUpdateById(anime.fields.anime_id['integerValue'])} 
+                            buttonName={'Update'}
+                        />
                     ))
                 :
                     <h1>EMPTY ARRAY</h1>

@@ -12,6 +12,7 @@ import {
     UpdateCardAnimeSpan,
     UpdateCardAnimeParagraph,
     UpdateCardReviewInfo,
+    UpdateCardCheckboxContainer,
     UpdateCardCheckbox,
     UpdateCardInput,
     UpdateCardSelect,
@@ -67,14 +68,16 @@ const UpdateAnimeComponent = ({data, hidden, setHidden})=>{
                     <UpdateCardAnimeInfo>
                         <UpdateCardAnimeImage src={data.image_url}/>
                         <UpdateCardAnimeSpan fSize={'2rem'}>{data.title}</UpdateCardAnimeSpan>
-                        <UpdateCardAnimeSpan fSize={'1.3rem'}>{data.year}</UpdateCardAnimeSpan>
+                        <UpdateCardAnimeSpan fSize={'1.3rem'}>Year: {data.year}</UpdateCardAnimeSpan>
                         <UpdateCardAnimeParagraph>
                             {data.synopsis}
                         </UpdateCardAnimeParagraph>
                     </UpdateCardAnimeInfo>
                     <UpdateCardReviewInfo>
                         <UpdateCardAnimeSpan fSize={'1.3rem'}>Priority</UpdateCardAnimeSpan>
-                        <UpdateCardCheckbox id='priority' type='checkbox' defaultChecked={data.priority}/>
+                        <UpdateCardCheckboxContainer>
+                            <UpdateCardCheckbox id='priority' type='checkbox' defaultChecked={data.priority}/>
+                        </UpdateCardCheckboxContainer>
                         <UpdateCardAnimeSpan fSize={'1.3rem'}>Chapter</UpdateCardAnimeSpan>
                         <UpdateCardInput id='chapter' type='number'  defaultValue={data.chapter}/>
                         <UpdateCardAnimeSpan fSize={'1.3rem'}>Status</UpdateCardAnimeSpan>
@@ -96,7 +99,7 @@ const UpdateAnimeComponent = ({data, hidden, setHidden})=>{
                     <UpdateCardTextArea id='review' defaultValue={data.review}></UpdateCardTextArea>
                         <UpdateCardButtonContainer>
                             <UpdateCardButton onClick={()=>handleUpdateAnimeReview(data.anime_id)}>Update</UpdateCardButton>
-                            <UpdateCardButton>Cancel</UpdateCardButton>
+                            <UpdateCardButton onClick={()=>handleCloseWindow()}>Cancel</UpdateCardButton>
                         </UpdateCardButtonContainer>
                     </UpdateCardReviewInfo>
                 </UpdateCardSubContainer>

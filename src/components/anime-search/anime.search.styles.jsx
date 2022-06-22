@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 
 export const AnimeSearchContainer = styled.div`
-    background-color:grey;
+    background-color:var(--main-color);
     width:80%;
     margin:10px auto;
     padding:10px;
-    border:1px solid white;
+    border:1px solid var(--lighter-oposite-color);
     border-radius:20px;
     position:absolute;
     top:120px;
@@ -16,7 +16,7 @@ export const AnimeSearchContainer = styled.div`
 export const AnimeSearchClose = styled.button`
     margin: 10px 0 5px 95%;
     padding:2px 7px;
-    color:black;
+    color:var(--oposite-color);
     font-size:2rem;
     font-weight:bold;
     border:0;
@@ -24,7 +24,7 @@ export const AnimeSearchClose = styled.button`
     background-color:#f0f8ff00;
 
     &:hover{
-        color:red;
+        color:var(--lighter-oposite-color);
     }
 `;
 
@@ -40,7 +40,7 @@ export const AnimeSearchMain = styled.div`
 `;
 
 export const AnimeSearchStyle = styled.div`
-    border:1px solid black;
+    border:1px solid var(--lighter-oposite-color);
     border-radius:20px;
     padding:20px;
     width:80%;
@@ -52,8 +52,11 @@ export const AnimeSearchInput = styled.input`
     padding:5px 10px;
     font-size:1.3rem;
     font-weight:bold;
+    border:1px solid var(--dark-main-color);
     border-radius:20px 0 0 20px;
     width:80%;
+    background-color:var(--dark-main-color);
+    color:var(--lighter-oposite-color);
 
     &:focus-visible{
         border:0;
@@ -65,15 +68,15 @@ export const AnimeSearchButton = styled.button`
     padding:5px 10px;
     font-size:1.3rem;
     font-weight:bold;
-    color:white;
-    background-color:black;
-    border:1px solid black;
+    color:var(--dark-main-color);
+    background-color:var(--lighter-oposite-color);
+    border:1px solid var(--lighter-oposite-color);
     transition: all 0.3s ease;
 
     &:hover{
-        color:black;
-        background-color:white;
-        border:1px solid white;
+        color:var(--lighter-main-color);
+        background-color:var(--dark-main-color);
+        border:1px solid var(--lighter-main-color);
     }
 
 `;
@@ -81,7 +84,7 @@ export const AnimeSearchButton = styled.button`
 export const AnimeSearchList = styled.div`
     width:90%;
     padding:10px;
-    border:1px solid black;
+    border:1px solid var(--lighter-oposite-color);
     border-radius:20px;
     display: flex;
     flex-wrap: wrap;
@@ -90,6 +93,6 @@ export const AnimeSearchList = styled.div`
 `;
 
 export const AnimeSearchListEmpty = styled.h1`
-    color:#9d9d9d;
+    color:var(--dark-main-color);
     font-size:4rem;
 `;
