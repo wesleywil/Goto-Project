@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const HomepageContainer = styled.div`
     background-color:var(--dark-main-color);
+    background-image: repeating-linear-gradient(-45deg,  #6571ce40, #6571ce40 1px, transparent 1px, transparent 6px);
+    background-size: 4px 4px;
+
     width:80%;
     margin:50px auto;
     border:1px solid var(--main-color);
@@ -28,6 +31,31 @@ export const HomePageAnimeContainer = styled.div`
     display:flex;
     gap:10px;
     justify-content:center;
+`;
+
+export const HomePageAnimeAllButton = styled.button`
+    font-size:1.3rem;
+    font-weight:bold;
+    text-transform:uppercase;
+    color:var(--dark-main-color);
+    background-color:var(--lighter-main-color);
+    border:1px solid var(--lighter-main-color);
+    border-radius:10px;
+    padding:5px 10px;
+    text-align:center;
+    transition: all 0.5s ease;
+    box-shadow: -2px 3px var(--main-color);
+
+    &:hover{
+        color:var(--lighter-main-color);
+        background-color:var(--dark-main-color);
+        border:1px solid var(--lighter-main-color);
+        box-shadow: -1px 1px var(--dark-main-color);
+    }
+
+    &:focus{
+        box-shadow: -1px 1px var(--oposite-color);
+    } 
 `;
 
 export const HomePageAnimeButton = styled.button`
@@ -57,6 +85,7 @@ export const HomePageAnimeButton = styled.button`
 
 export const HomepageStatusContainer = styled.div`
     border:2px solid var(--lighter-main-color);
+    backdrop-filter: blur(1px);
     border-radius:20px;
     width:30%;
     height:50px;
@@ -99,6 +128,7 @@ export const HomepageStatusButton = styled.button`
 
 export const HomepageList = styled.div`
     border:1px solid var(--lighter-main-color);
+    backdrop-filter: blur(1px);
     border-radius:20px;
     width:90%;
     margin:10px auto;

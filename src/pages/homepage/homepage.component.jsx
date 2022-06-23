@@ -4,14 +4,16 @@ import axios from "axios";
 import AnimeCard from "../../components/anime-card/anime-card.component";
 import AnimeSearch from "../../components/anime-search/anime-search.component";
 import UpdateAnimeComponent from "../../components/update-card/update.card.component";
+import AnimeStatus from "../../components/anime-status/anime-status.component";
 
 
-import { selectAnimeById } from "../../database/database_connection.component";
+import { selectAnimeById} from "../../database/database_connection.component";
 
 import { 
     HomepageContainer,
     HomePageTitle,
-    HomePageAnimeButton, 
+    HomePageAnimeButton,
+    HomePageAnimeAllButton, 
     HomePageAnimeContainer, 
     HomepageList, 
     HomepageStatusButton, 
@@ -23,23 +25,42 @@ import {
 const Homepage = ()=>{
     const [hiddenAnimeSearch, setHiddenAnimeSearch] = useState('none');
     const [hiddenUpdateAnime, setHiddenUpdateAnime] = useState('none');
-    const [updateData, setUpdateData] = useState(null)
+    const [updateData, setUpdateData] = useState(null);
     const [animes, setAnimes] = useState([]);
 
-   useEffect(()=>{
-    console.log('Use Effect Trigger')
-    axios.get(`https://firestore.googleapis.com/v1/projects/project-goto-animes/databases/(default)/documents/animes`)
-    .then((response)=>{
-        if(response.data.documents === undefined){
-            console.log('UNDEFINED')
-            setAnimes([]);
-        }else{
-            setAnimes(response.data.documents)
-            console.log(response.data.documents)
-        }
+    const[borderColor, setBorderColor] = useState('var(--lighter-main-color)');
+    const[animeFilter, setAnimeFilter] = useState([]);
 
-    })
-   },[])
+//    useEffect(()=>{
+//     console.log('Use Effect Trigger')
+//     axios.get(`https://firestore.googleapis.com/v1/projects/project-goto-animes/databases/(default)/documents/animes`)
+//     .then((response)=>{
+//         if(response.data.documents === undefined){
+//             console.log('UNDEFINED')
+//             setAnimes([]);
+//         }else{
+//             setAnimes(response.data.documents)
+//             setAnimeFilter(response.data.documents)
+//             console.log(response.data.documents)
+//         }
+
+//     })
+//    },[])
+
+    const handleListAnime = ()=>{
+        axios.get(`https://firestore.googleapis.com/v1/projects/project-goto-animes/databases/(default)/documents/animes`)
+        .then((response)=>{
+            if(response.data.documents === undefined){
+                console.log('UNDEFINED')
+                setAnimes([]);
+            }else{
+                setAnimes(response.data.documents)
+                setAnimeFilter(response.data.documents)
+                console.log(response.data.documents)
+            }
+
+        })  
+    }
 
    const handleUpdateById =(id) =>{
     selectAnimeById(id).then((response)=>{
@@ -54,25 +75,25 @@ const Homepage = ()=>{
             <HomePageTitle>GOTO - Project</HomePageTitle>
             <HomePageAnimeContainer>
                 <HomePageAnimeButton onClick={()=>{setHiddenAnimeSearch('block')}}>New Anime</HomePageAnimeButton>
+                <HomePageAnimeAllButton onClick={()=>{handleListAnime()}}>SHOW ALL</HomePageAnimeAllButton>
             </HomePageAnimeContainer>
             <HomepageStatusContainer>
-                <HomepageStatusButton color="#8bd98b"><span>Reading</span></HomepageStatusButton>
-                <HomepageStatusButton color="#f5f552"><span>Read</span></HomepageStatusButton>
-                <HomepageStatusButton color="#f16464"><span>Dropped</span></HomepageStatusButton>
+                <AnimeStatus setAnimeFilter={setAnimeFilter} setBorderColor={setBorderColor} animes={animes} />
             </HomepageStatusContainer>
             <HomepageList>
                 {
-                (animes !== undefined)?
-                (animes.length)?
-                    animes.map((anime)=>(
-                        <AnimeCard 
-                            key={anime.fields.anime_id['integerValue']} 
-                            name={anime.fields.title['stringValue']} 
-                            background={anime.fields.image_url['stringValue']} 
-                            handle={()=>handleUpdateById(anime.fields.anime_id['integerValue'])} 
-                            buttonName={'Update'}
-                        />
-                    ))
+                (animeFilter !== undefined)?
+                (animeFilter.length)?
+                    animeFilter.map((anime)=>(
+                            <AnimeCard 
+                                key={anime.fields.anime_id['integerValue']} 
+                                name={anime.fields.title['stringValue']} 
+                                background={anime.fields.image_url['stringValue']} 
+                                handle={()=>handleUpdateById(anime.fields.anime_id['integerValue'])}
+                                border={borderColor} 
+                                buttonName={'Update'}
+                            />
+                        ))
                 :
                     <h1>EMPTY ARRAY</h1>
                 :

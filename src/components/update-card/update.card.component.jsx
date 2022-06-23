@@ -30,17 +30,6 @@ const UpdateAnimeComponent = ({data, hidden, setHidden})=>{
         setHidden('none');
     }
 
-    useEffect(()=>{
-        if(data === null){
-            console.log('NO DATA');
-        }else{
-            var selectObj = document.getElementById('status');
-            var selectObj2 = document.getElementById('rate');
-            selectObj[data.status].selected = true;
-            selectObj2[data.rate].selected = true;
-        }
-
-    },[])
 
     const handleUpdateAnimeReview = (id)=>{
         const priority = document.getElementById('priority').checked;
@@ -51,7 +40,8 @@ const UpdateAnimeComponent = ({data, hidden, setHidden})=>{
         const data = {priority,chapter,status,rate,review}
         
         updateAnimeById(id, data).then(()=>{
-            handleCloseWindow()
+           
+            window.location.reload()
         })
     }
 
