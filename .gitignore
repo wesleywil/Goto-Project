@@ -25,3 +25,6 @@ dist-ssr
 
 
 src/database
+src/pages/tests
+helper.txt
+.env
