@@ -1,20 +1,7 @@
-:root{
-  --main-color:#343d87;
-  --lighter-main-color:#6571ce;
-  --dark-main-color:#11163B;
-  --oposite-color:#877535;
-  --lighter-oposite-color:#cab25a;
-  --dark-oposite-color:#3B300B;
-}
-
-body{
-  background-image:linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url('./assets/images/m01.jpg');
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("./assets/images/m01.jpg");
   background-position: center;
-  background-size:2500px 2000px;
+  background-size: 2500px 2000px;
   background-repeat: no-repeat;
-  
 }
-
-
-
-
