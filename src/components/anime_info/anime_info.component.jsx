@@ -3,7 +3,7 @@ import { useState } from "react";
 const AnimeInfo = () => {
   const [rate, setRate] = useState("2");
   return (
-    <div className="flex items-center gap-2 p-2 m-2 border-2">
+    <div className="flex items-center gap-2 p-2 m-2 border-2 rounded-xl">
       <img
         className="rounded-xl border-2 p-1"
         src="https://dummyimage.com/200x250"
