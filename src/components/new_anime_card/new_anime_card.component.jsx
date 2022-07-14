@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createAnime, alterTable } from "../../database/storage";
 
 const AnimeModal = ({ item, opacity, setOpacity }) => {
   return (
@@ -22,18 +23,39 @@ const AnimeModal = ({ item, opacity, setOpacity }) => {
   );
 };
 
+const handleAddAnime = (item) => {
+  const data = {
+    title: item.title,
+    description: item.synopsis,
+    image: item.images.webp.image_url,
+    link: "",
+    status: "Reading/Watching",
+    rate: 5,
+    review: "",
+  };
+  // console.log("RESULT==> ", data);
+  createAnime(data);
+};
+
+const handleAlterTable = () => {
+  console.log("TEST", alterTable());
+};
+
 const NewAnimeCard = ({ item }) => {
   const [opacity, setOpacity] = useState("hidden");
 
   const handleOpacity = (opacity) => {
     setOpacity(opacity);
   };
-  console.log("TITLE LENGTH? ", item.title.length);
   return (
-    <div className="flex justify-center items-center m-2 ">
+    <div className="flex  justify-center items-center m-2 ">
       <div className="card card-side bg-base-100 shadow-xl">
         <figure>
-          <img src={item.images.webp.image_url} alt="Movie" />
+          <img
+            className="h-full "
+            src={item.images.webp.image_url}
+            alt="Movie"
+          />
         </figure>
         <div className="card-body">
           <h2 className="card-title">
@@ -50,7 +72,13 @@ const NewAnimeCard = ({ item }) => {
           </span>
 
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Watch</button>
+            <button
+              onClick={() => handleAddAnime(item)}
+              className="btn btn-primary"
+            >
+              ADD
+            </button>
+            <button onClick={() => handleAlterTable()}>Update Table</button>
           </div>
         </div>
       </div>

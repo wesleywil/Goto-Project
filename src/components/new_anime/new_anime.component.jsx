@@ -10,6 +10,7 @@ const NewAnime = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+
   const handleSearch = async (searchInput) => {
     console.log("Searching...");
     const res = await axios.get(
@@ -41,26 +42,20 @@ const NewAnime = () => {
       `);
     setItemOffset(newOffset);
   };
-
   return (
-    <div className="mt-32 container mx-auto  flex flex-col justify-center">
+    <div className=" border-2 container mx-auto  flex flex-col justify-center">
       <h1 className="text-white text-3xl font-semibold uppercase underline text-center">
         New Anime
       </h1>
       <div className="flex flex-col gap-2 items-center  p-2">
         <SearchBar setQuery={setQuery} handle={handleSearch} />
       </div>
-      <div className="mt-5 p-2 xl:flex xl:flex-wrap grid grid-cols-2 justify-center">
+      <div className="mt-5 p-2 xl:flex  grid grid-cols-2 justify-center">
         {currentItems.map((item) => (
           <NewAnimeCard key={item.mal_id} item={item} />
         ))}
-
-        {/* <NewAnimeCard />
-        <NewAnimeCard />
-        <NewAnimeCard />
-        <NewAnimeCard /> */}
       </div>
-      <div className="mx-auto">
+      <div className="mx-auto p-2">
         <ReactPaginate
           breakLabel="..."
           nextLabel="NEXT >"

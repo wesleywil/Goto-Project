@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 
-src/database
+src/database/database_connection.component.jsx
 src/pages/tests
 helper.txt
 .env

@@ -11,8 +11,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route exact="true" path="/" element={<Homepage />} /> */}
-        <Route exact="true" path="/" element={<TestDB />} />
+        <Route exact="true" path="/" element={<Homepage />} />
+        <Route exact="true" path="/test" element={<TestDB />} />
       </Routes>
     </BrowserRouter>
   );
