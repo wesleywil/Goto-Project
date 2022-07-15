@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createAnime, alterTable } from "../../database/storage";
+// import { createAnime, alterTable } from "../../database/storage";
 
 const AnimeModal = ({ item, opacity, setOpacity }) => {
   return (
@@ -34,12 +34,12 @@ const handleAddAnime = (item) => {
     review: "",
   };
   // console.log("RESULT==> ", data);
-  createAnime(data);
+  //createAnime(data);
 };
 
-const handleAlterTable = () => {
-  console.log("TEST", alterTable());
-};
+// const handleAlterTable = () => {
+//   console.log("TEST", alterTable());
+// };
 
 const NewAnimeCard = ({ item }) => {
   const [opacity, setOpacity] = useState("hidden");

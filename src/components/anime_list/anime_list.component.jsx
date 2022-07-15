@@ -1,18 +1,18 @@
 import AnimeInfo from "../anime_info/anime_info.component";
-import { allAnimes } from "../../database/storage";
+// import { allAnimes } from "../../database/storage";
 import { useEffect, useState } from "react";
 const AnimeList = () => {
   const [animes, setAnimes] = useState([]);
 
-  useEffect(() => {
-    console.log("Anime List Useeffect");
-    const handleList = async () => {
-      const res = await allAnimes();
-      setAnimes(res);
-      console.log("RESULTS ANIMES ==> ", res[0]);
-    };
-    handleList();
-  }, []);
+  // useEffect(() => {
+  //   console.log("Anime List Useeffect");
+  //   const handleList = async () => {
+  //     const res = await allAnimes();
+  //     setAnimes(res);
+  //     console.log("RESULTS ANIMES ==> ", res[0]);
+  //   };
+  //   handleList();
+  // }, []);
 
   return (
     <div className="mt-32">

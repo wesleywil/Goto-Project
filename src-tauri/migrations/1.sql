@@ -1,5 +1,5 @@
--- CREATE  TABLE animes (
---     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
---     title VARCHAR(300) NOT NULL,
---     description VARCHAR(300) NOT NULL
--- );
+CREATE  TABLE animes (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR(300) NOT NULL,
+    description VARCHAR(300) NO NULL
+); 

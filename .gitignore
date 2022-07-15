@@ -25,6 +25,7 @@ dist-ssr
 
 
 src/database/database_connection.component.jsx
+src/database/storage.jsx
 src/pages/tests
 helper.txt
 .env

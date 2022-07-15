@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateAnime, removeAnime } from "../../database/storage";
+// import { updateAnime, removeAnime } from "../../database/storage";
 
 const AnimeInfo = ({ item }) => {
   const [rate, setRate] = useState("2");
@@ -11,9 +11,9 @@ const AnimeInfo = ({ item }) => {
 
   const handleDelete = (id) => {
     console.log("DELETED", id);
-    removeAnime(id).then((res) => {
-      console.log(res);
-    });
+    // removeAnime(id).then((res) => {
+    //   console.log(res);
+    // });
   };
 
   return (

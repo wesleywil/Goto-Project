@@ -5,8 +5,15 @@ import NewAnime from "../../components/new_anime/new_anime.component";
 import AnimeList from "../../components/anime_list/anime_list.component";
 import LoadingComponent from "../../components/loading/loading.component";
 
+// import { invoke } from "@tauri-apps/api";
+
 const Homepage = () => {
   const [view, setView] = useState(<LoadingComponent />);
+
+  const test = () => {
+    // invoke("greet", { name: "Wesley" }).then((res) => console.log(res));
+  };
+
   return (
     <div className="h-screen mx-auto  p-2">
       {/* Topo Menu */}
@@ -39,6 +46,17 @@ const Homepage = () => {
               className="bg-red-900 hover:bg-red-900/60 text-white hover:text-slate-200 text-xl uppercase font-semibold p-3 rounded-full"
             >
               <FaListUl />
+            </button>
+          </div>
+          <div
+            className="tooltip tooltip-right tooltip-primary"
+            data-tip="List Animes"
+          >
+            <button
+              onClick={() => test()}
+              className="bg-red-900 hover:bg-red-900/60 text-white hover:text-slate-200 text-xl uppercase font-semibold p-3 rounded-full"
+            >
+              TEST
             </button>
           </div>
         </div>
