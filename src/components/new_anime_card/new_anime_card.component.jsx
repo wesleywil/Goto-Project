@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { createAnime, alterTable } from "../../database/storage";
+import { createAnime } from "../../server/storage";
 
 const AnimeModal = ({ item, opacity, setOpacity }) => {
   return (
@@ -26,15 +26,15 @@ const AnimeModal = ({ item, opacity, setOpacity }) => {
 const handleAddAnime = (item) => {
   const data = {
     title: item.title,
-    description: item.synopsis,
     image: item.images.webp.image_url,
+    description: item.synopsis,
     link: "",
     status: "Reading/Watching",
     rate: 5,
     review: "",
   };
-  // console.log("RESULT==> ", data);
-  //createAnime(data);
+  console.log("CREATING ANIME WITH DATA==> ", data);
+  createAnime(data);
 };
 
 // const handleAlterTable = () => {

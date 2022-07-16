@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaPlus, FaListUl } from "react-icons/fa";
+import axios from "axios";
+
 import SearchBar from "../../components/search_bar/search_bar.component";
 import NewAnime from "../../components/new_anime/new_anime.component";
 import AnimeList from "../../components/anime_list/anime_list.component";
@@ -12,6 +14,9 @@ const Homepage = () => {
 
   const test = () => {
     // invoke("greet", { name: "Wesley" }).then((res) => console.log(res));
+    axios.get("http://localhost:8000/animes/all").then((res) => {
+      console.log("ANIME LIST ===>", res);
+    });
   };
 
   return (
