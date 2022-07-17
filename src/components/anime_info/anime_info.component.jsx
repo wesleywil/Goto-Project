@@ -1,10 +1,12 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { updateAnime } from "../../server/storage";
 
 const AnimeInfo = ({ item }) => {
   const [rate, setRate] = useState("2");
   const [hidden, setHidden] = useState(true);
+  const animeLink = useRef(null);
+  const animeStatus = useRef(null);
+  const animeRate = useRef(null);
 
   const handleHidden = () => {
     setHidden(!hidden);
@@ -18,16 +20,13 @@ const AnimeInfo = ({ item }) => {
   };
 
   const handleUpdate = (item) => {
-    const link = document.getElementById("link").value;
-    const status = document.getElementById("status").value;
-    const rate = document.getElementById("rate").value;
     const data = {
       title: item.title,
       image: item.image,
       description: item.description,
-      link: link,
-      status: status,
-      rate: rate,
+      link: animeLink.current.value,
+      status: animeStatus.current.value,
+      rate: animeRate.current.value,
       review: item.review,
       id: item.id,
     };
@@ -43,30 +42,43 @@ const AnimeInfo = ({ item }) => {
 
   useEffect(() => {
     console.log("Anime Info Effect!");
-  }, [handleUpdate]);
+  }, []);
 
   return (
-    <div className="flex items-center gap-2 p-2 m-2 border-2 rounded-xl">
-      <img
-        className="rounded-xl border-2 p-1"
-        src={item.image === "" ? "http://dummyimage.com/200x250" : item.image}
-        id="image"
-        style={{ width: "200px", height: "250px" }}
-      />
-      <div className="bg-slate-500  p-2  rounded-xl relative right-52 opacity-0 hover:opacity-100 easy-in-out duration-500">
+    <div
+      className="flex p-2 m-2  rounded-xl "
+      style={{ width: "250px", height: "300px" }}
+    >
+      <div className="absolute" style={{ width: "220px", height: "270px" }}>
+        <img
+          className="rounded-xl border-2 p-1"
+          src={item.image === "" ? "http://dummyimage.com/200x250" : item.image}
+          id="image"
+          style={{ width: "220px", height: "270px" }}
+        />
+      </div>
+
+      <div
+        className="bg-slate-500  z-10 p-2  rounded-xl absolute  opacity-0 hover:opacity-100 easy-in-out duration-500"
+        style={{ width: "220px", height: "270px" }}
+      >
         <div className="flex flex-col gap-1">
-          <h1 className="text-black font-bold text-xl">{item.title}</h1>
+          <h1 className="text-black font-bold text-xl">
+            {item.title.length > 24
+              ? item.title.slice(0, 24) + "..."
+              : item.title}
+          </h1>
           <input
             type="text"
             className=" px-2 py-1 font-semibold text-black rounded-xl"
             placeholder="Link Goes Here"
-            id="link"
+            ref={animeLink}
             defaultValue={item.link}
           />
         </div>
         <select
           className="font-semibold text-black mt-2 rounded-xl px-2 py-1"
-          id="status"
+          ref={animeStatus}
           defaultValue={item.status}
         >
           <option value="" disabled>
@@ -83,7 +95,7 @@ const AnimeInfo = ({ item }) => {
           max="10"
           defaultValue={item.rate}
           className="range  range-accent range-lg"
-          id="rate"
+          ref={animeRate}
         />
         <div className="mt-2 flex flex-col gap-2 bg-slate-800/50 rounded-xl p-2">
           <div className="flex gap-2">
@@ -94,7 +106,9 @@ const AnimeInfo = ({ item }) => {
               GOTO
             </button>
             <button
-              onClick={() => handleUpdate(item)}
+              onClick={() => {
+                handleUpdate(item);
+              }}
               className="text-xl text-yellow-400 hover:text-yellow-500  font-semibold"
             >
               Update

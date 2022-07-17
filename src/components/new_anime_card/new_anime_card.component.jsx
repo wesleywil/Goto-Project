@@ -78,7 +78,6 @@ const NewAnimeCard = ({ item }) => {
             >
               ADD
             </button>
-            <button onClick={() => handleAlterTable()}>Update Table</button>
           </div>
         </div>
       </div>

@@ -23,9 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-
-src/server/database_connection.component.jsx
-src/server/storage.jsx
 src/pages/tests
 helper.txt
 .env

@@ -1,25 +1,36 @@
-import AnimeInfo from "../anime_info/anime_info.component";
 import { useEffect, useState } from "react";
 import { allAnimes } from "../../server/storage";
 
-const AnimeList = () => {
+import AnimeInfo from "../anime_info/anime_info.component";
+import ButtonStatus from "../button_status/button_status.component";
+
+const AnimeList = ({ searchQuery }) => {
   const [animes, setAnimes] = useState([]);
 
   const getListAnimes = async () => {
     const res = await allAnimes();
     console.log("ALL ANIMES==> ", res);
-    setAnimes(res);
+    if (typeof searchQuery == "undefined") {
+      setAnimes(res);
+    } else {
+      if (searchQuery.length) {
+        setAnimes(searchQuery);
+      } else {
+        setAnimes(res);
+      }
+    }
   };
 
   useEffect(() => {
     getListAnimes();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <div className="mt-32">
       <h1 className="text-white text-3xl font-semibold uppercase underline text-center">
-        New Anime
+        My Animes
       </h1>
+      <ButtonStatus setAnimes={setAnimes} />
       <div className="mt-2 p-2 xl:flex xl:flex-wrap grid grid-cols-2 justify-center">
         {animes.length ? (
           animes.map((item) => <AnimeInfo key={item.id} item={item} />)

@@ -40,6 +40,22 @@ export async function updateAnime(anime) {
   return res;
 }
 
+export async function searchAnimeByTitle(title) {
+  const res = await db.select(
+    "SELECT*FROM animes WHERE title=$1 COLLATE NOCASE",
+    [title]
+  );
+  return res;
+}
+
+export async function searchByStatus(status) {
+  const res = await db.select(
+    "SELECT*FROM animes WHERE status=$1 COLLATE NOCASE",
+    [status]
+  );
+  return res;
+}
+
 export async function removeAnime(id) {
   const res = await db.execute("DELETE FROM animes WHERE id=$1", [id]);
   const results = {
