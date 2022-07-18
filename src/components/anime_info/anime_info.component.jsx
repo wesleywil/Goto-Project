@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { updateAnime } from "../../server/storage";
+import { updateAnime } from "../../server/db_functions_animes";
 
 const AnimeInfo = ({ item }) => {
   const [rate, setRate] = useState("2");

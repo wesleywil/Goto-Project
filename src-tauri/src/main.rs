@@ -16,6 +16,11 @@ fn main() {
         description:"create anime",
         sql:include_str!("../migrations/1.sql"),
         kind:MigrationKind::Up,
+      },Migration{
+        version:2,
+        description:"create manga",
+        sql:include_str!("../migrations/2.sql"),
+        kind:MigrationKind::Up,
       }],
     ))
     .run(context)

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createAnime } from "../../server/storage";
+import { createAnime } from "../../server/db_functions_animes";
 
 const AnimeModal = ({ item, opacity, setOpacity }) => {
   return (

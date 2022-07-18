@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { searchByStatus, allAnimes } from "../../server/storage";
+import { searchByStatus, allAnimes } from "../../server/db_functions_animes";
 
 const ButtonStatus = ({ setAnimes }) => {
   const [searchQuery] = useState();
@@ -18,10 +18,7 @@ const ButtonStatus = ({ setAnimes }) => {
 
   return (
     <div className="ml-3 mt-2 mb-2 flex gap-2 p-2">
-      <div
-        className="tooltip tooltip-bottom tooltip-primary"
-        data-tip="All Animes"
-      >
+      <div className="tooltip tooltip-bottom tooltip-primary" data-tip="All">
         <button
           onClick={() => handleStatus()}
           className="p-3 bg-violet-400 hover:bg-violet-600 rounded-full "
