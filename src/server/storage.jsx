@@ -42,7 +42,7 @@ export async function updateAnime(anime) {
 
 export async function searchAnimeByTitle(title) {
   const res = await db.select(
-    "SELECT*FROM animes WHERE title=$1 COLLATE NOCASE",
+    `SELECT*FROM animes WHERE title LIKE "%${title}%" COLLATE NOCASE`,
     [title]
   );
   return res;

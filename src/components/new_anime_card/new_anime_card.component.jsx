@@ -68,7 +68,12 @@ const NewAnimeCard = ({ item }) => {
           </button>
           <AnimeModal item={item} opacity={opacity} setOpacity={setOpacity} />
           <span>
-            Year: <span>{item.aired.prop.from.year}</span>
+            Year:{" "}
+            <span>
+              {typeof item.aired == "undefined"
+                ? item.published.prop.from.year
+                : item.aired.prop.from.year}
+            </span>
           </span>
 
           <div className="card-actions justify-end">

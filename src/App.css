@@ -4,4 +4,5 @@ body {
   background-position: center;
   background-size: 2500px 2000px;
   background-repeat: repeat-y;
+  min-height: 1000px;
 }

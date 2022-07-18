@@ -9,7 +9,7 @@ const LoadingComponent = () => {
   //       </div>
   //     </div>
   return (
-    <div className="mt-32">
+    <div className=" mt-32">
       <div
         className="mx-auto  animate-spin radial-progress"
         style={{ "--value": "70" }}

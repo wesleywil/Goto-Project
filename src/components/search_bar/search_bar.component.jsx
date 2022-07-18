@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const SearchBar = ({ setQuery, handle }) => {
   const [searchInput, setSearchInput] = useState("");
+  const toggle = useRef();
+
+  const handleTestToggle = () => {
+    console.log("CHECKED? ", toggle.current.checked);
+  };
 
   return (
     <>
@@ -12,7 +17,12 @@ const SearchBar = ({ setQuery, handle }) => {
             <span className="label-text text-black font-semibold px-2 py-1 mr-1">
               Anime/Manga
             </span>
-            <input type="checkbox" className="toggle toggle-accent" />
+            <input
+              type="checkbox"
+              className="toggle toggle-accent"
+              id="toggle"
+              ref={toggle}
+            />
           </label>
         </div>
         <input
@@ -24,7 +34,8 @@ const SearchBar = ({ setQuery, handle }) => {
           }}
         />
         <button
-          onClick={() => handle(searchInput)}
+          onClick={() => handle(searchInput, toggle)}
+          // onClick={() => handleTestToggle()}
           className="text-3xl rounded-r-xl bg-red-800 hover:bg-red-900 text-white hover:text-slate-300 px-2 py-1 font-semibold"
         >
           Search

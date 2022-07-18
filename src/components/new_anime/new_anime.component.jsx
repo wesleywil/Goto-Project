@@ -11,11 +11,15 @@ const NewAnime = () => {
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
-  const handleSearch = async (searchInput) => {
+  const handleSearch = async (searchInput, toggle) => {
     console.log("Searching...");
-    const res = await axios.get(
-      `https://api.jikan.moe/v4/anime?q=${searchInput}`
-    );
+    let res = "";
+    if (toggle.current.checked) {
+      res = await axios.get(`https://api.jikan.moe/v4/manga?q=${searchInput}`);
+    } else {
+      res = await axios.get(`https://api.jikan.moe/v4/anime?q=${searchInput}`);
+    }
+
     console.log("Results", res);
     setQuery(res.data.data);
     const endOffset = itemOffset + 4;
@@ -50,10 +54,19 @@ const NewAnime = () => {
       <div className="flex flex-col gap-2 items-center  p-2">
         <SearchBar setQuery={setQuery} handle={handleSearch} />
       </div>
-      <div className="mt-5 p-2 xl:flex  grid grid-cols-2 justify-center">
-        {currentItems.map((item) => (
-          <NewAnimeCard key={item.mal_id} item={item} />
-        ))}
+      <div className="mt-5 p-2 xl:flex  grid grid-cols-2 justify-center justify-items-center">
+        {currentItems.length ? (
+          currentItems.map((item) => (
+            <NewAnimeCard key={item.mal_id} item={item} />
+          ))
+        ) : (
+          <h1
+            className="text-8xl text-blue-200 mx-auto text-center"
+            style={{ width: "750px" }}
+          >
+            Make Your Search!
+          </h1>
+        )}
       </div>
       <div className="mx-auto p-2">
         <ReactPaginate
