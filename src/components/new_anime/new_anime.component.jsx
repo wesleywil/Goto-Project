@@ -10,14 +10,17 @@ const NewAnime = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+  const [isAnime, setIsAnime] = useState(true);
 
   const handleSearch = async (searchInput, toggle) => {
     console.log("Searching...");
     let res = "";
     if (toggle.current.checked) {
       res = await axios.get(`https://api.jikan.moe/v4/manga?q=${searchInput}`);
+      setIsAnime(false);
     } else {
       res = await axios.get(`https://api.jikan.moe/v4/anime?q=${searchInput}`);
+      setIsAnime(true);
     }
 
     console.log("Results", res);
@@ -57,7 +60,7 @@ const NewAnime = () => {
       <div className="mt-5 p-2 xl:flex  grid grid-cols-2 justify-center justify-items-center">
         {currentItems.length ? (
           currentItems.map((item) => (
-            <NewAnimeCard key={item.mal_id} item={item} />
+            <NewAnimeCard key={item.mal_id} item={item} isanime={isAnime} />
           ))
         ) : (
           <h1

@@ -3,23 +3,62 @@ import Database from "tauri-plugin-sql-api";
 const db = await Database.load("sqlite:main.db");
 
 export async function createAnime(anime) {
-  const res = await db.execute(
-    "INSERT INTO animes (title,description,image,link,status,rate,review) values($1,$2,$3,$4,$5,$6,$7)",
-    [
-      anime.title,
-      anime.description,
-      anime.image,
-      anime.link,
-      anime.status,
-      anime.rate,
-      anime.review,
-    ]
-  );
-  console.log("CREATING NEW ANIME...", res);
+  let info = {};
+  const data = await db.select("SELECT*FROM animes WHERE title=$1", [
+    anime.title,
+  ]);
+
+  if (!data.length) {
+    const res = await db.execute(
+      "INSERT INTO animes (title,description,image,link,status,rate,review) values($1,$2,$3,$4,$5,$6,$7)",
+      [
+        anime.title,
+        anime.description,
+        anime.image,
+        anime.link,
+        anime.status,
+        anime.rate,
+        anime.review,
+      ]
+    );
+    info = {
+      message: "Anime Successfully Added",
+      status: 201,
+      data: res,
+    };
+    return info;
+  } else {
+    if (anime.title === data[0].title) {
+      info = {
+        message: "Anime already in your list",
+        status: 400,
+      };
+      return info;
+    } else {
+      const res = await db.execute(
+        "INSERT INTO animes (title,description,image,link,status,rate,review) values($1,$2,$3,$4,$5,$6,$7)",
+        [
+          anime.title,
+          anime.description,
+          anime.image,
+          anime.link,
+          anime.status,
+          anime.rate,
+          anime.review,
+        ]
+      );
+      info = {
+        message: "Anime Successfully Added",
+        status: 201,
+        data: res,
+      };
+      return info;
+    }
+  }
 }
 
 export async function allAnimes() {
-  const res = await db.select("SELECT * FROM animes");
+  const res = await db.select("SELECT * FROM animes ORDER BY id DESC");
   return res;
 }
 

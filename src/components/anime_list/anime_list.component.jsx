@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { allAnimes } from "../../server/db_functions_animes";
+import { allAnimes, searchByStatus } from "../../server/db_functions_animes";
 import ReactPaginate from "react-paginate";
 
 import AnimeInfo from "../anime_info/anime_info.component";
@@ -48,12 +48,24 @@ const AnimeList = ({ searchQuery }) => {
     setItemOffset(newOffset);
   };
 
+  const handleStatus = async (status) => {
+    if (typeof status == "undefined") {
+      const res = await allAnimes();
+      console.log("All");
+      setAnimes(res);
+    } else {
+      const res = await searchByStatus(status);
+      console.log("Status ", status);
+      setAnimes(res);
+    }
+  };
+
   return (
     <div className="mt-32">
       <h1 className="text-white text-3xl font-semibold uppercase underline text-center">
         My Animes
       </h1>
-      <ButtonStatus setAnimes={setAnimes} />
+      <ButtonStatus setAnimes={setAnimes} handle={handleStatus} />
       <div className="mt-2 p-2 xl:flex xl:flex-wrap grid grid-cols-2 justify-center">
         {currentItems.length ? (
           currentItems.map((item) => <AnimeInfo key={item.id} item={item} />)

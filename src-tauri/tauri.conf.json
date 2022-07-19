@@ -56,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 640,
         "resizable": true,
         "title": "goto-project by wesley wilson",
-        "width": 800
+        "width": 1024
       }
     ]
   }

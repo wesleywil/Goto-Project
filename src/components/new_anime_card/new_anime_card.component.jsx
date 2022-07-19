@@ -1,48 +1,41 @@
 import { useState } from "react";
+
+import AnimeModal from "../anime_modal/anime_modal.component";
+
 import { createAnime } from "../../server/db_functions_animes";
+import { createManga } from "../../server/db_functions_mangas";
 
-const AnimeModal = ({ item, opacity, setOpacity }) => {
-  return (
-    <div
-      className={` bg-black/50 flex justify-center fixed top-0 right-0 left-0 bottom-0  z-50 ${opacity}`}
-    >
-      <div className="h-96 modal-box">
-        <h3 className="font-bold text-lg">Full Description</h3>
-        <p className="py-4">{item.synopsis}</p>
-        <div className="modal-action">
-          <button
-            onClick={() => setOpacity("hidden")}
-            htmlFor="my-modal"
-            className="btn"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const handleAddAnime = (item) => {
-  const data = {
-    title: item.title,
-    image: item.images.webp.image_url,
-    description: item.synopsis,
-    link: "",
-    status: "Reading/Watching",
-    rate: 5,
-    review: "",
-  };
-  console.log("CREATING ANIME WITH DATA==> ", data);
-  createAnime(data);
-};
-
-// const handleAlterTable = () => {
-//   console.log("TEST", alterTable());
-// };
-
-const NewAnimeCard = ({ item }) => {
+const NewAnimeCard = ({ item, isanime }) => {
   const [opacity, setOpacity] = useState("hidden");
+  const [message, setMessage] = useState("");
+
+  const handleAddAnime = (item, isanime) => {
+    const data = {
+      title: item.title,
+      image: item.images.webp.image_url,
+      description: item.synopsis,
+      link: "",
+      status: "Reading/Watching",
+      rate: 5,
+      review: "",
+    };
+
+    if (isanime) {
+      console.log("Creating anime...");
+      createAnime(data).then((res) => {
+        setMessage(res);
+        console.log(res);
+        setTimeout(location.reload(), 4000);
+      });
+    } else {
+      console.log("Creating manga...");
+      createManga(data).then((res) => {
+        setMessage(res);
+        console.log(res);
+        setTimeout(location.reload(), 4000);
+      });
+    }
+  };
 
   const handleOpacity = (opacity) => {
     setOpacity(opacity);
@@ -78,11 +71,24 @@ const NewAnimeCard = ({ item }) => {
 
           <div className="card-actions justify-end">
             <button
-              onClick={() => handleAddAnime(item)}
+              onClick={() => handleAddAnime(item, isanime)}
               className="btn btn-primary"
             >
               ADD
             </button>
+          </div>
+          <div>
+            {message === "" ? (
+              ""
+            ) : message.status === 400 ? (
+              <h1 className="text-center p-2 border-2 border-red-600 text-red-600 rounded-xl">
+                {message.message}
+              </h1>
+            ) : (
+              <h1 className="text-center p-2 border-2 border-green-600 text-green-600 rounded-xl">
+                {message.message}
+              </h1>
+            )}
           </div>
         </div>
       </div>

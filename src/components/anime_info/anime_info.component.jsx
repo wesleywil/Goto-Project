@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { updateAnime } from "../../server/db_functions_animes";
+import { updateAnime, removeAnime } from "../../server/db_functions_animes";
 
 const AnimeInfo = ({ item }) => {
   const [rate, setRate] = useState("2");
@@ -32,7 +32,7 @@ const AnimeInfo = ({ item }) => {
     };
     updateAnime(data).then((res) => {
       console.log("UPDATED !", res);
-      location.reload();
+      setTimeout(location.reload(), 4000);
     });
   };
 
