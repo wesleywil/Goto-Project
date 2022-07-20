@@ -50,7 +50,7 @@ const NewAnime = () => {
     setItemOffset(newOffset);
   };
   return (
-    <div className=" border-2 container mx-auto  flex flex-col justify-center">
+    <div className="container mx-auto  flex flex-col justify-center">
       <h1 className="text-white text-3xl font-semibold uppercase underline text-center">
         New Anime
       </h1>
@@ -63,12 +63,7 @@ const NewAnime = () => {
             <NewAnimeCard key={item.mal_id} item={item} isanime={isAnime} />
           ))
         ) : (
-          <h1
-            className="text-8xl text-blue-200 mx-auto text-center"
-            style={{ width: "750px" }}
-          >
-            Make Your Search!
-          </h1>
+          <h1 className="text-3xl text-blue-200 mx-auto text-center"></h1>
         )}
       </div>
       <div className="mx-auto p-2">

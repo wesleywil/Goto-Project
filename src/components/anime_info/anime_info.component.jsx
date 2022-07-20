@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { updateAnime, removeAnime } from "../../server/db_functions_animes";
+import { updateManga, removeManga } from "../../server/db_functions_mangas";
 
-const AnimeInfo = ({ item }) => {
+const AnimeInfo = ({ item, isAnime }) => {
   const [rate, setRate] = useState("2");
   const [hidden, setHidden] = useState(true);
   const animeLink = useRef(null);
@@ -13,10 +14,19 @@ const AnimeInfo = ({ item }) => {
   };
 
   const handleDelete = (id) => {
-    console.log("DELETED", id);
-    removeAnime(id).then((res) => {
-      console.log(res);
-    });
+    if (isAnime) {
+      console.log("DELETED", id);
+      removeAnime(id).then((res) => {
+        console.log(res);
+        setTimeout(() => location.reload(), 4000);
+      });
+    } else {
+      console.log("DELETED", id);
+      removeManga(id).then((res) => {
+        console.log(res);
+        setTimeout(() => location.reload(), 4000);
+      });
+    }
   };
 
   const handleUpdate = (item) => {
@@ -30,10 +40,17 @@ const AnimeInfo = ({ item }) => {
       review: item.review,
       id: item.id,
     };
-    updateAnime(data).then((res) => {
-      console.log("UPDATED !", res);
-      setTimeout(location.reload(), 4000);
-    });
+    if (isAnime) {
+      updateAnime(data).then((res) => {
+        console.log("ANIME UPDATED !", res);
+        setTimeout(() => location.reload(), 4000);
+      });
+    } else {
+      updateManga(data).then((res) => {
+        console.log("MANGA UPDATED !", res);
+        setTimeout(() => location.reload(), 4000);
+      });
+    }
   };
 
   const handleGoto = (link) => {

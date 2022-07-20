@@ -68,7 +68,9 @@ const MangaList = ({ searchQuery }) => {
       <ButtonStatus setAnimes={setMangas} handle={handleStatus} />
       <div className="mt-2 p-2 xl:flex xl:flex-wrap grid grid-cols-2 justify-center">
         {currentItems.length ? (
-          currentItems.map((item) => <AnimeInfo key={item.id} item={item} />)
+          currentItems.map((item) => (
+            <AnimeInfo key={item.id} item={item} isAnime={false} />
+          ))
         ) : (
           <h1 className="w-full fixed right-0 left-0 text-8xl  text-center">
             NO MANGAS ADDED YET!

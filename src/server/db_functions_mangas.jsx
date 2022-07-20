@@ -3,19 +3,55 @@ import Database from "tauri-plugin-sql-api";
 const db = await Database.load("sqlite:main.db");
 
 export async function createManga(manga) {
-  const res = await db.execute(
-    "INSERT INTO mangas(title,image,description,link,status,rate,review) values($1,$2,$3,$4,$5,$6,$7)",
-    [
-      manga.title,
-      manga.image,
-      manga.description,
-      manga.link,
-      manga.status,
-      manga.rate,
-      manga.review,
-    ]
-  );
-  console.log("CREATING NEW MANGA...", res);
+  let info = {};
+  const data = await db.select("SELECT*FROM mangas WHERE title=$1", [manga.id]);
+  if (!data.length) {
+    const res = await db.execute(
+      "INSERT INTO mangas(title,image,description,link,status,rate,review) values($1,$2,$3,$4,$5,$6,$7)",
+      [
+        manga.title,
+        manga.image,
+        manga.description,
+        manga.link,
+        manga.status,
+        manga.rate,
+        manga.review,
+      ]
+    );
+    info = {
+      message: "Manga Successfully Added",
+      status: 201,
+      data: res,
+    };
+    return info;
+  } else {
+    if (manga.title === data[0].title) {
+      info = {
+        message: "Manga already in your list",
+        status: 400,
+      };
+      return info;
+    } else {
+      const res = await db.execute(
+        "INSERT INTO mangas(title,image,description,link,status,rate,review) values($1,$2,$3,$4,$5,$6,$7)",
+        [
+          manga.title,
+          manga.image,
+          manga.description,
+          manga.link,
+          manga.status,
+          manga.rate,
+          manga.review,
+        ]
+      );
+      info = {
+        message: "Manga Successfully Added",
+        status: 201,
+        data: res,
+      };
+      return info;
+    }
+  }
 }
 
 export async function allMangas() {
@@ -34,6 +70,7 @@ export async function updateManga(manga) {
       manga.status,
       manga.rate,
       manga.review,
+      manga.id,
     ]
   );
   return res;

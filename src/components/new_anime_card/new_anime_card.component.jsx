@@ -25,14 +25,14 @@ const NewAnimeCard = ({ item, isanime }) => {
       createAnime(data).then((res) => {
         setMessage(res);
         console.log(res);
-        setTimeout(location.reload(), 4000);
+        setTimeout(() => location.reload(), 4000);
       });
     } else {
       console.log("Creating manga...");
       createManga(data).then((res) => {
         setMessage(res);
         console.log(res);
-        setTimeout(location.reload(), 4000);
+        setTimeout(() => location.reload(), 4000);
       });
     }
   };

@@ -68,7 +68,9 @@ const AnimeList = ({ searchQuery }) => {
       <ButtonStatus setAnimes={setAnimes} handle={handleStatus} />
       <div className="mt-2 p-2 xl:flex xl:flex-wrap grid grid-cols-2 justify-center">
         {currentItems.length ? (
-          currentItems.map((item) => <AnimeInfo key={item.id} item={item} />)
+          currentItems.map((item) => (
+            <AnimeInfo key={item.id} item={item} isAnime={true} />
+          ))
         ) : (
           <h1 className="w-full fixed right-0 left-0 text-8xl  text-center">
             NO ANIMES ADDED YET!

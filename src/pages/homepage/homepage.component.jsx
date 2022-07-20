@@ -7,6 +7,7 @@ import AnimeList from "../../components/anime_list/anime_list.component";
 import MangaList from "../../components/manga_list/manga_list.component";
 import LoadingComponent from "../../components/loading/loading.component";
 import { searchAnimeByTitle } from "../../server/db_functions_animes";
+import { searchMangaByTitle } from "../../server/db_functions_mangas";
 
 // import { invoke } from "@tauri-apps/api";
 
@@ -18,11 +19,16 @@ const Homepage = () => {
     // invoke("greet", { name: "Wesley" }).then((res) => console.log(res));
   };
 
-  const handleSearch = async (searchInput) => {
-    const res = await searchAnimeByTitle(searchInput);
-    console.log(res);
-    // setSearchQuery(res);
-    setView(<AnimeList searchQuery={res} />);
+  const handleSearch = async (searchInput, toggle) => {
+    if (!toggle.current.checked) {
+      const res = await searchAnimeByTitle(searchInput);
+      // setSearchQuery(res);
+      setView(<AnimeList searchQuery={res} />);
+    } else {
+      const res = await searchMangaByTitle(searchInput);
+      // setSearchQuery(res);
+      setView(<MangaList searchQuery={res} />);
+    }
   };
 
   return (
