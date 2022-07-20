@@ -1,6 +1,11 @@
 import Database from "tauri-plugin-sql-api";
 
-const db = await Database.load("sqlite:main.db");
+// const db = await Database.load("sqlite:main.db");
+let db = null;
+const load = Database.load("sqlite:main.db").then((instance) => {
+  db = instance;
+  return db;
+});
 
 export async function createAnime(anime) {
   let info = {};
@@ -58,6 +63,7 @@ export async function createAnime(anime) {
 }
 
 export async function allAnimes() {
+  await load;
   const res = await db.select("SELECT * FROM animes ORDER BY id DESC");
   return res;
 }

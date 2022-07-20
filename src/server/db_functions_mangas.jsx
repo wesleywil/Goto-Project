@@ -1,6 +1,12 @@
 import Database from "tauri-plugin-sql-api";
 
-const db = await Database.load("sqlite:main.db");
+// const db = await Database.load("sqlite:main.db");
+
+let db = null;
+const load = Database.load("sqlite:main.db").then((instance) => {
+  db = instance;
+  return db;
+});
 
 export async function createManga(manga) {
   let info = {};
@@ -55,7 +61,8 @@ export async function createManga(manga) {
 }
 
 export async function allMangas() {
-  const res = await db.select("SELECT * FROM mangas");
+  await load;
+  const res = await db.select("SELECT * FROM mangas ORDER BY id DESC");
   return res;
 }
 
