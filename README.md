@@ -8,7 +8,7 @@ This project is for my anime management, I'm replacing a notepad txt with a lot 
 
 ## Project GIF
 
-![Goto Project](https://i.imgur.com/nNGuD73.gif)
+https://i.imgur.com/nNGuD73.gif
 
 
 ## Used Tech
