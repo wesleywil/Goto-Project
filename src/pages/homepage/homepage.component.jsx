@@ -1,84 +1,25 @@
-import { useState } from "react";
-import { FaPlus, FaListUl } from "react-icons/fa";
+import { FaSearch, FaHome, FaList } from "react-icons/fa";
 
-import SearchBar from "../../components/search_bar/search_bar.component";
-import NewAnime from "../../components/new_anime/new_anime.component";
-import AnimeList from "../../components/anime_list/anime_list.component";
-import MangaList from "../../components/manga_list/manga_list.component";
-import LoadingComponent from "../../components/loading/loading.component";
-import { searchAnimeByTitle } from "../../server/db_functions_animes";
-import { searchMangaByTitle } from "../../server/db_functions_mangas";
-
-// import { invoke } from "@tauri-apps/api";
+import Menu from "../../components/menu/menu.component";
+import SearchBar2 from "../../components/search_bar_2/search_bar_2.component";
+import ItemShowcase from "../../components/item_showcase/item_showcase.component";
 
 const Homepage = () => {
-  const [view, setView] = useState(<LoadingComponent />);
-  const [searchQuery] = useState();
-
-  const test = () => {
-    // invoke("greet", { name: "Wesley" }).then((res) => console.log(res));
-  };
-
-  const handleSearch = async (searchInput, toggle) => {
-    if (!toggle.current.checked) {
-      const res = await searchAnimeByTitle(searchInput);
-      // setSearchQuery(res);
-      setView(<AnimeList searchQuery={res} />);
-    } else {
-      const res = await searchMangaByTitle(searchInput);
-      // setSearchQuery(res);
-      setView(<MangaList searchQuery={res} />);
-    }
-  };
-
   return (
-    <div className=" mx-auto  p-2">
-      {/* Topo Menu */}
-      <div className="bg-slate-800/60 p-2 flex justify-center">
-        {/* Search Bar */}
-        <div className="flex flex-col w-3/5	 gap-2 items-center self-center p-2">
-          <SearchBar handle={handleSearch} />
-        </div>
+    <div className="p-2 h-screen border text-white">
+      {/* Search Bar */}
+      <SearchBar2 />
+      {/* Menu Homepage Button - List Animes/Mangas */}
+      <Menu />
+      {/* Project Name */}
+      <div className="flex flex-col items-center mt-4">
+        <h1 className="text-7xl font-bold">GO TO</h1>
+        <h2 className="text-xl font-semibold">Animes & Mangas</h2>
       </div>
-      {/* Content */}
-      <div className="mt-5">
-        <div className="flex flex-col gap-2 float-left">
-          <div
-            className="tooltip tooltip-right tooltip-primary"
-            data-tip="New Anime/Manga"
-          >
-            <button
-              onClick={() => setView(<NewAnime />)}
-              className="bg-red-900 hover:bg-red-900/60 text-white hover:text-slate-200 text-xl uppercase font-semibold p-3 rounded-full"
-            >
-              <FaPlus />
-            </button>
-          </div>
-          <div
-            className="tooltip tooltip-right tooltip-primary"
-            data-tip="List Animes"
-          >
-            <button
-              onClick={() => setView(<AnimeList searchQuery={searchQuery} />)}
-              className="bg-red-900 hover:bg-red-900/60 text-white hover:text-slate-200 text-xl uppercase font-semibold p-3 rounded-full"
-            >
-              <FaListUl />
-            </button>
-          </div>
-          <div
-            className="tooltip tooltip-right tooltip-primary"
-            data-tip="List Mangass"
-          >
-            <button
-              onClick={() => setView(<MangaList searchQuery={searchQuery} />)}
-              className="bg-red-900 hover:bg-red-900/60 text-white hover:text-slate-200 text-xl uppercase font-semibold p-3 rounded-full"
-            >
-              <FaListUl />
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-2 p-2 flex flex-wrap justify-center">{view}</div>
+      {/* Quantity of Animes and Mangas Added */}
+      <div className="mt-4 flex justify-center gap-4">
+        <ItemShowcase qtd={300} name="Goto Animes" color={"blue"} />
+        <ItemShowcase qtd={2850} name="Goto Mangas" color={"green"} />
       </div>
     </div>
   );
