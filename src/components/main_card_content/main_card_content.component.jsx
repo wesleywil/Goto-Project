@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-const AnimeCardContent = () => {
+const MainCardContent = () => {
   const cardInDB = useSelector((state) => state.utils.cardInDB);
   console.log(cardInDB);
   if (cardInDB === true) {
@@ -40,4 +40,4 @@ const AnimeCardContent = () => {
   }
 };
 
-export default AnimeCardContent;
+export default MainCardContent;

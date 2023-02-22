@@ -1,6 +1,6 @@
-import AnimeCardContent from "../anime_card_content/anime_card_content.component";
+import MainCardContent from "../main_card_content/main_card_content.component";
 
-const AnimeCard = () => {  
+const MainCard = () => {  
     return (
       <div
         className=" p-2 border rounded-xl"
@@ -11,10 +11,10 @@ const AnimeCard = () => {
         }}
       >
         <div className="w-full h-full p-2 flex flex-col items-center justify-between bg-black/40 border border-red-600 rounded-xl">
-          <AnimeCardContent/>
+          <MainCardContent/>
         </div>
       </div>
     );
 };
 
-export default AnimeCard;
+export default MainCard;
