@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaHome, FaList } from "react-icons/fa";
+import { FaHome, FaList,FaPlus } from "react-icons/fa";
 
 const Menu = () => {
   return (
@@ -22,6 +22,13 @@ const Menu = () => {
         <div className="bg-green-600 p-2 rounded">
           <Link to="/mangas">
             <FaList />
+          </Link>
+        </div>
+      </div>
+      <div className="tooltip tooltip-bottom" data-tip="Add Mangas/Animes">
+        <div className="bg-purple-600 p-2 rounded">
+          <Link to="/add">
+            <FaPlus />
           </Link>
         </div>
       </div>
