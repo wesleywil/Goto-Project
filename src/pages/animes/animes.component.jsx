@@ -1,14 +1,22 @@
+import { useSelector } from "react-redux";
+
 import Layout from "../../components/layout/layout.component";
 import MainCard from "../../components/main_card/main_card.component";
 
 const Animes = () => {
+  const animes = useSelector((state)=> state.animes.animes);
+
   return (
     <Layout name="Animes">
       {/* Anime List */}
       <div className="mt-4 flex flex-wrap gap-2">
-        <MainCard />
-        <MainCard />
-        <MainCard />
+        {
+          animes.length?animes.map((item, i)=>(
+           
+            <MainCard key={i} info={item} />
+          )):"NO ANIMES YET"
+        }
+        
       </div>
     </Layout>
   );
