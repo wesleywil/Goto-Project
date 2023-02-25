@@ -1,15 +1,14 @@
 import { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { set_is_anime } from "../../redux/utils/utils";
+import axios from "axios";
 
 // Components
 import Layout from "../../components/layout/layout.component";
 import MainCard from "../../components/main_card/main_card.component";
 
 const Add = () => {
-  //const isAnime = useSelector((state) => state.utils.isAnime);
   const dispatch = useDispatch();
 
   const [query, setQuery] = useState([]);
