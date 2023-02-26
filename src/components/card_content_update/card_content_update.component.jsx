@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-
-import { updateAnime } from "../../server/db_functions_animes";
-import { updateManga } from "../../server/db_functions_mangas";
+import { useSelector, useDispatch } from "react-redux";
+import { updateAnime, deleteAnime } from "../../redux/animes/animes";
+import { updateManga, deleteManga } from "../../redux/mangas/mangas";
 
 const CardContentUpdate = ({ item }) => {
   const link = useRef(null);
@@ -10,6 +9,7 @@ const CardContentUpdate = ({ item }) => {
   const rate = useRef(null);
   const [hidden, setHidden] = useState(true);
   const isAnime = useSelector((state) => state.utils.isAnime);
+  const dispatch = useDispatch();
 
   const handleHidden = () => {
     setHidden(!hidden);
@@ -29,14 +29,21 @@ const CardContentUpdate = ({ item }) => {
 
     if (isAnime) {
       console.log("Anime data=> ", data);
-      // updateAnime(data).then((res)=>{
-      //   console.log('Anime updated! ', res);
-      // })
+      dispatch(updateAnime(data))
     } else {
       console.log("Manga data=> ", data);
-      // updateManga(data).then((res)=>{
-      //   console.log('Manga updated! ', res);
-      // })
+      dispatch(updateManga(data))
+    }
+  };
+
+  const handleDelete = () => {
+    if (isAnime) {
+      dispatch(deleteAnime(item.id))
+      
+      setHidden(!hidden);
+    } else {
+      dispatch(deleteManga(item.id));
+      setHidden(!hidden);
     }
   };
   const handleGoto = (link) => {
@@ -102,10 +109,31 @@ const CardContentUpdate = ({ item }) => {
             Delete
           </button>
         </div>
-        <div className={hidden?"hidden":""+"w-full flex flex-col items-center bg-black/50 backdrop-blur-sm rounded"}>
+        <div
+          className={
+            hidden
+              ? "hidden"
+              : "" +
+                "w-full flex flex-col items-center bg-black/50 backdrop-blur-sm rounded"
+          }
+        >
           <h1>Delete?</h1>
           <div className="flex gap-2 font-bold">
-            <button className="text-red-400 hover:text-red-600">Yes</button>/<button onClick={()=>setHidden(!hidden)} className="text-green-400 hover:text-green-600">No</button>
+            <button
+              onClick={() => {
+                handleDelete();
+              }}
+              className="text-red-400 hover:text-red-600"
+            >
+              Yes
+            </button>
+            /
+            <button
+              onClick={() => setHidden(!hidden)}
+              className="text-green-400 hover:text-green-600"
+            >
+              No
+            </button>
           </div>
         </div>
       </div>
