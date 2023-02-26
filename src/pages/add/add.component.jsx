@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import { set_is_anime } from "../../redux/utils/utils";
 import axios from "axios";
@@ -9,6 +9,7 @@ import Layout from "../../components/layout/layout.component";
 import MainCard from "../../components/main_card/main_card.component";
 
 const Add = () => {
+  const isAnime = useSelector((state)=> state.utils.isAnime);
   const dispatch = useDispatch();
 
   const [query, setQuery] = useState([]);
@@ -27,6 +28,12 @@ const Add = () => {
     console.log("Results=> ", res);
     setQuery(res.data.data.slice(10));
   };
+
+  useEffect(()=>{
+    console.log('Changed Add List')
+  }, [query, isAnime])
+
+
   return (
     <Layout name="Add Manga/Anime">
       {/* Search Bar */}

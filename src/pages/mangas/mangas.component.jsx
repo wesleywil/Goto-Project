@@ -1,11 +1,16 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-
+// COmponents
 import Layout from "../../components/layout/layout.component";
 import MainCard from "../../components/main_card/main_card.component";
 
 const Mangas = () => {
   const mangas = useSelector((state)=> state.mangas.mangas);
+
+  useEffect(()=>{
+    console.log("Mangas Page UseEffect")
+  },[mangas])
 
   return (
     <Layout name="Mangas">

@@ -1,10 +1,16 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+// Components
 import Layout from "../../components/layout/layout.component";
 import MainCard from "../../components/main_card/main_card.component";
 
 const Animes = () => {
   const animes = useSelector((state)=> state.animes.animes);
+
+  useEffect(()=>{
+    console.log("Animes Page UseEffect")
+  },[animes])
 
   return (
     <Layout name="Animes">
@@ -16,7 +22,6 @@ const Animes = () => {
             <MainCard key={i} info={item} />
           )):"NO ANIMES YET"
         }
-        
       </div>
     </Layout>
   );
